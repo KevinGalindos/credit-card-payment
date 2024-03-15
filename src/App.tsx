@@ -1,14 +1,8 @@
-// import { useState } from 'react'
-import './App.css'
+import "./App.css";
+import { Home } from "./views/Home/Home";
 
 function App() {
-  // const [count, setCount] = useState(0)
-
-  return (
-    <>
-     <p>WOMPI</p>
-    </>
-  )
+  return <Home />;
 }
 
-export default App
+export default App;
