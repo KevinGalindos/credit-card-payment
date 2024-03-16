@@ -12,3 +12,8 @@ export interface Rating {
   rate: number,
   count: number
 }
+
+export interface ModalProps {
+  modalOpen: boolean;
+  setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}

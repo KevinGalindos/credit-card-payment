@@ -1,0 +1,50 @@
+[
+  {
+    "id": "1",
+    "image": "../../src/assets/franchises.PNG",
+    "title": "Paga con tus tarjetas",
+    "description": "",
+    "isNew": "false",
+    "isActive": "true"
+  },
+  {
+    "id": "2",
+    "image": "../../src/assets/qr.png",
+    "title": "Paga con el codigo QR",
+    "description": "(A la mano de Bancolombia)",
+    "isNew": "true",
+    "isActive": "false"
+  },
+  {
+    "id": "3",
+    "image": "../../src/assets/LogoBancolombia.png",
+    "title": "Transfiere con tu cuenta",
+    "description": "(ahorro o corriente Bancolombia)",
+    "isNew": "false",
+    "isActive": "false"
+  },
+  {
+    "id": "4",
+    "image": "../../src/assets/nequi.png",
+    "title": "Paga con tu cuenta de Nequi",
+    "description": "",
+    "isNew": "false",
+    "isActive": "false"
+  },
+  {
+    "id": "5",
+    "image": "../../src/assets/pse.png",
+    "title": "Transfiere con tu cuenta de ahorros o corriente",
+    "description": "",
+    "isNew": "false",
+    "isActive": "false"
+  },
+  {
+    "id": "6",
+    "image": "../../src/assets/cash.png",
+    "title": "Pago en efectivo en Corresponsal bancario",
+    "description": "",
+    "isNew": "false",
+    "isActive": "false"
+  }
+]

@@ -1,0 +1,32 @@
+.payment {
+  display: grid;
+  grid-template-columns: repeat(2, 300px);
+  justify-items: center;
+
+  
+}
+
+hr {
+  border:         none;
+    border-left:    1px solid #d3d3d3a1;
+    height:         60px;
+    width:          1px;    
+}
+
+li h4{
+  color: #666;
+  font-family: Roboto;
+}
+
+.card{
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  height: 80px;
+  width: 220px;
+}
+
+.card img {
+  width: auto;
+  height: 50px;
+}
