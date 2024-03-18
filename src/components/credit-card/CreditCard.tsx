@@ -1,10 +1,10 @@
-import { useState } from "react";
 import Cards from "react-credit-cards-2";
+import { Button, Form, type FormProps } from "antd";
+
+import InputNumberValidate from "../FormComponents/InputNumberValidate";
+
 import "react-credit-cards-2/dist/es/styles-compiled.css";
 import "./CreditCard.css";
-import { Button, Form, type FormProps, Input } from "antd";
-import { ONLY_NUMBERS } from "../../utils/constants/ValidateFieldForm";
-import InputNumberValidate from "../FormComponents/InputNumberValidate";
 import InputLettersValidate from "../FormComponents/InputLettersValidate";
 
 type FieldType = {
@@ -18,17 +18,15 @@ export interface evtProps {
   evt: React.ChangeEvent<HTMLInputElement>;
 }
 
-export const CreditCard = () => {
-  const [formRef] = Form.useForm();
+const { useForm, useWatch } = Form;
 
-  const [state, setState] = useState({
-    number: "",
-    expiry: "",
-    cvc: "",
-    name: "",
-    focus: "",
-  });
-  const [isCvc, setCvc] = useState<number>();
+export const CreditCard = () => {
+  const [formRef] = useForm();
+
+  const cvcCard = useWatch("cvc", formRef) || "";
+  const nameCard = useWatch("name", formRef) || "";
+  const numberCard = useWatch("number", formRef) || "";
+  const expiryCard = useWatch("expiry", formRef) || "";
 
   const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
     console.log("Success:", values);
@@ -40,33 +38,16 @@ export const CreditCard = () => {
     console.log("Failed:", errorInfo);
   };
 
-  const handleInputChange = (evt) => {
-    const { name, value } = evt.target;
-    setState((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleInputChangeCvc = (evt) => {
-    const { name, value } = evt.target;
-    const validateNumber = ONLY_NUMBERS.test(value);
-    if (validateNumber) {
-      setState((prev) => ({ ...prev, [name]: value }));
-      setCvc(value);
-    }
-  };
-
-  const handleInputFocus = (evt) => {
-    setState((prev) => ({ ...prev, focus: evt.target.name }));
-  };
   //  console.log("state", state);
 
   return (
     <div className="credit-card">
       <Cards
-        cvc={state.cvc}
-        expiry={state.expiry}
-        focused={state.focus}
-        name={state.name}
-        number={state.number}
+        cvc={cvcCard}
+        expiry={expiryCard}
+        focused={cvcCard ? "cvc" : ""}
+        name={nameCard}
+        number={numberCard}
       />
       <div>
         <Form
@@ -93,20 +74,17 @@ export const CreditCard = () => {
               placeholder="Numero de la tarjeta"
               maxLength={16}
             /> */}
-            <InputNumberValidate />
+            <InputNumberValidate
+              placeholder="Numero de la tarjeta"
+              maxLength={16}
+            />
           </Form.Item>
 
           <Form.Item<FieldType>
             name="name"
             rules={[{ required: true, message: "Please input your name!" }]}
           >
-            {/* <Input
-              onFocus={handleInputFocus}
-              onChange={handleInputChange}
-              name="name"
-              placeholder="Nombre del titular"
-            /> */}
-            <InputLettersValidate />
+            <InputLettersValidate placeholder="Nombre del titular" />
           </Form.Item>
 
           <Form.Item<FieldType>
@@ -115,10 +93,7 @@ export const CreditCard = () => {
               { required: true, message: "Please input your name!", max: 4 },
             ]}
           >
-            <Input
-              onFocus={handleInputFocus}
-              onChange={handleInputChange}
-              name="expiry"
+            <InputNumberValidate
               placeholder="Fecha de vencimiento"
               maxLength={4}
             />
@@ -134,14 +109,7 @@ export const CreditCard = () => {
               },
             ]}
           >
-            <Input
-              onFocus={handleInputFocus}
-              onChange={(e) => handleInputChangeCvc(e)}
-              id="cvc"
-              name="cvc"
-              placeholder="cvv"
-              maxLength={3}
-            />
+            <InputNumberValidate placeholder="CVV" maxLength={3} />
           </Form.Item>
 
           <Form.Item>
