@@ -2,7 +2,10 @@ import { useState } from "react";
 import Cards from "react-credit-cards-2";
 import "react-credit-cards-2/dist/es/styles-compiled.css";
 import "./CreditCard.css";
-import { Button, Form, type FormProps, Input, InputNumber } from "antd";
+import { Button, Form, type FormProps, Input } from "antd";
+import { ONLY_NUMBERS } from "../../utils/constants/ValidateFieldForm";
+import InputNumberValidate from "../FormComponents/InputNumberValidate";
+import InputLettersValidate from "../FormComponents/InputLettersValidate";
 
 type FieldType = {
   name?: string;
@@ -16,6 +19,8 @@ export interface evtProps {
 }
 
 export const CreditCard = () => {
+  const [formRef] = Form.useForm();
+
   const [state, setState] = useState({
     number: "",
     expiry: "",
@@ -23,6 +28,7 @@ export const CreditCard = () => {
     name: "",
     focus: "",
   });
+  const [isCvc, setCvc] = useState<number>();
 
   const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
     console.log("Success:", values);
@@ -33,6 +39,25 @@ export const CreditCard = () => {
   ) => {
     console.log("Failed:", errorInfo);
   };
+
+  const handleInputChange = (evt) => {
+    const { name, value } = evt.target;
+    setState((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleInputChangeCvc = (evt) => {
+    const { name, value } = evt.target;
+    const validateNumber = ONLY_NUMBERS.test(value);
+    if (validateNumber) {
+      setState((prev) => ({ ...prev, [name]: value }));
+      setCvc(value);
+    }
+  };
+
+  const handleInputFocus = (evt) => {
+    setState((prev) => ({ ...prev, focus: evt.target.name }));
+  };
+  //  console.log("state", state);
 
   return (
     <div className="credit-card">
@@ -45,11 +70,11 @@ export const CreditCard = () => {
       />
       <div>
         <Form
+          form={formRef}
           name="form-credit-card"
-          initialValues={{ remember: true }}
+          initialValues={{ remember: false }}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
-          autoComplete="off"
         >
           <Form.Item<FieldType>
             name="number"
@@ -57,32 +82,66 @@ export const CreditCard = () => {
               {
                 required: true,
                 message: "Please input the credit card number!",
-                len: 16,
-                type: "number",
+                max: 16,
               },
             ]}
           >
-            <InputNumber type="number" placeholder="Numero de la tarjeta" />
+            {/* <Input
+              onFocus={handleInputFocus}
+              name="number"
+              onChange={handleInputChange}
+              placeholder="Numero de la tarjeta"
+              maxLength={16}
+            /> */}
+            <InputNumberValidate />
           </Form.Item>
 
           <Form.Item<FieldType>
             name="name"
             rules={[{ required: true, message: "Please input your name!" }]}
           >
-            <Input placeholder="Nombre del titular" />
+            {/* <Input
+              onFocus={handleInputFocus}
+              onChange={handleInputChange}
+              name="name"
+              placeholder="Nombre del titular"
+            /> */}
+            <InputLettersValidate />
           </Form.Item>
 
           <Form.Item<FieldType>
             name="expiry"
-            rules={[{ required: true, message: "Please input your name!" }]}
+            rules={[
+              { required: true, message: "Please input your name!", max: 4 },
+            ]}
           >
-            <Input placeholder="Fecha de vencimiento" />
+            <Input
+              onFocus={handleInputFocus}
+              onChange={handleInputChange}
+              name="expiry"
+              placeholder="Fecha de vencimiento"
+              maxLength={4}
+            />
           </Form.Item>
           <Form.Item<FieldType>
             name="cvc"
-            rules={[{ required: true, message: "Please input your name!" }]}
+            rules={[
+              {
+                required: true,
+                message: "Please input your name!",
+                max: 3,
+                min: 3,
+              },
+            ]}
           >
-            <Input placeholder="cvv" />
+            <Input
+              onFocus={handleInputFocus}
+              onChange={(e) => handleInputChangeCvc(e)}
+              id="cvc"
+              name="cvc"
+              placeholder="cvv"
+              maxLength={3}
+            />
           </Form.Item>
 
           <Form.Item>

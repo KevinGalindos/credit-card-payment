@@ -1,5 +1,5 @@
 .credit-card {
-  margin-top: 50px;
+  margin-top: 30px;
 }
 
 .cardForm {
@@ -38,4 +38,8 @@
 
 .bottom input[name="cvc"] {
   width: 100px;
+}
+
+#form-credit-card {
+  margin-top: 20px;
 }
