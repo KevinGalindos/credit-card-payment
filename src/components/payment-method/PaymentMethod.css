@@ -2,28 +2,36 @@
   display: grid;
   grid-template-columns: repeat(2, 300px);
   justify-items: center;
-
-  
 }
 
 hr {
-  border:         none;
-    border-left:    1px solid #d3d3d3a1;
-    height:         60px;
-    width:          1px;    
+  border: none;
+  border-left: 1px solid #d3d3d3a1;
+  height: 60px;
+  width: 1px;
+  margin: 0;
 }
 
-li h4{
-  color: #666;
+h4 {
+  white-space: initial;
+  text-align: left;
   font-family: Roboto;
+  font-size: 12px;
+  font-weight: 500;
 }
 
-.card{
+li h4 {
+  color: #666;
+}
+
+.card {
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
   gap: 6px;
   height: 80px;
-  width: 220px;
+  width: 250px;
 }
 
 .card img {

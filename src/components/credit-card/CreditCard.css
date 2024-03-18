@@ -1,0 +1,41 @@
+.credit-card {
+  margin-top: 50px;
+}
+
+.cardForm {
+  margin: auto;
+  margin-top: 3rem;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardForm input {
+  margin: 0.5rem;
+  padding: 0.5rem;
+  border: 2px solid black;
+  border-radius: 4px;
+  outline: none;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.cardForm input:focus,
+.cardForm input:active {
+  border-color: rgb(0, 207, 0);
+}
+
+.cardForm .bottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.bottom input[name="expiry"] {
+  flex: 1;
+}
+
+.bottom input[name="cvc"] {
+  width: 100px;
+}
